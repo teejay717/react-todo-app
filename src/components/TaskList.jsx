@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
-const TaskList= ({ todos, setTodos }) => {
+const TaskList= ({ todos, setTodos, filter, setFilter }) => {
 
   function deleteTask(id) {
     setTodos(todos.filter(todo => todo.id !== id));
@@ -17,14 +17,14 @@ const TaskList= ({ todos, setTodos }) => {
 
   const tasksRemaining = todos.filter(todo => todo.completed === false).length
 
-  
+  console.log(filter);
 
   return (
     <>
     <ul className='text-2xl m-2'>
       {todos.map(todo => (
         <div key={todo.id} className='flex flex-row justify-center items-center'>
-          <li className={`flex border-1 border-gray-600 bg-gray-700 m-2 text-lg text-white w-[300px] h-auto py-2 px-4 rounded-lg break-words overflow-hidden ${todo.completed ? 'line-through opacity-50' : ''}`}>
+          <li className={`flex border-1 border-gray-600 bg-gray-700 m-2 text-lg text-white w-[300px] h-auto py-2 px-4 rounded-lg break-words overflow-hidden ${todo.completed ? 'opacity-50' : ''}`}>
             <span className='break-all'>
               <input
               type="checkbox"
