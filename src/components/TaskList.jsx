@@ -5,6 +5,9 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const TaskList= ({ todos, setTodos, filter, setFilter }) => {
 
+  const [editingId, setEditingId] = useState(null);
+  const [editText, setEditText] = useState("");
+
   function deleteTask(id) {
     setTodos(todos.filter(todo => todo.id !== id));
   }
@@ -18,6 +21,22 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
   function clearCompleted() {
     setTodos(todos.filter(todo => !todo.completed))
   }
+
+  function startEdit(todo) {
+    setEditingId(todo.id);
+    setEditText(todo.text);
+  }
+
+  function saveEdit(id, editText) {
+    setTodos(todos.map(todo => todo.id === id ? {...todo, text: editText} : todo));
+    setEditingId(null);
+    
+  }
+
+  function autoResize(e) {
+  e.target.style.height = 'auto';
+  e.target.style.height = e.target.scrollHeight + 'px';
+}
 
   const tasksRemaining = todos.filter(todo => todo.completed === false).length
 
@@ -33,15 +52,29 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
         (
         <div key={todo.id} className='flex flex-row justify-center items-center'>
           <li className={`flex border-1 border-gray-600 bg-gray-700 m-2 text-lg text-white w-[300px] h-auto py-2 px-4 rounded-lg break-words overflow-hidden ${todo.completed ? 'opacity-50' : ''}`}>
-            <span className='break-all'>
-              <input
+            <input
               type="checkbox"
               checked = {todo.completed} 
               onChange={() => toggleComplete(todo.id)}
               className='mr-4 cursor-pointer' 
               />
-              {todo.text}
-            </span>
+            <div className='flex justify-between items-center'>
+              <textarea 
+                className='break-all w-48 bg-transparent resize-none overflow-hidden'
+                disabled={editingId !== todo.id}
+                onChange={(e) => {
+                  setEditText(e.target.value);
+                  autoResize(e);
+                }}
+                onInput={autoResize}
+                value={editingId === todo.id ? editText : todo.text}
+                rows={1}
+                ref={(el) => { if (el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }}}
+              />
+              <button 
+              onClick={() => editingId === todo.id ? saveEdit(todo.id, editText) : startEdit(todo)}
+              className='opacity-50 ml-4 hover:cursor-pointer'>{editingId === todo.id ? 'Save' : 'Edit'}</button>
+            </div>
           </li>
           <button 
           onClick = {() => 
