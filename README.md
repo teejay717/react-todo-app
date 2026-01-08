@@ -1,16 +1,88 @@
-# React + Vite
+# React To-Do App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, modern to-do list application built with React and styled with Tailwind CSS.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB?logo=react)
+![Vite](https://img.shields.io/badge/Vite-7.2.4-646CFF?logo=vite)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4.1.18-38B2AC?logo=tailwind-css)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- ➕ **Add Tasks** - Quickly add new tasks with the input field or press Enter
+- ✏️ **Edit Tasks** - Click "Edit" to modify any existing task
+- ✅ **Mark Complete** - Check off tasks when finished
+- 🗑️ **Delete Tasks** - Remove individual tasks with the trash button
+- 🧹 **Clear Completed** - Remove all completed tasks at once
+- 🔍 **Filter Tasks** - View All, Active, or Completed tasks
+- 💾 **Persistent Storage** - Tasks are saved to localStorage and persist across browser sessions
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Getting Started
 
-## Expanding the ESLint configuration
+### Prerequisites
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/react-todo-app.git
+   cd react-todo-app
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and visit `http://localhost:5173`
+
+## 📜 Available Scripts
+
+| Command           | Description              |
+| ----------------- | ------------------------ |
+| `npm run dev`     | Start development server |
+| `npm run build`   | Build for production     |
+| `npm run preview` | Preview production build |
+| `npm run lint`    | Run ESLint               |
+
+## 🛠️ Built With
+
+- **[React](https://react.dev/)** - UI library
+- **[Vite](https://vitejs.dev/)** - Build tool and dev server
+- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
+- **[Font Awesome](https://fontawesome.com/)** - Icons
+
+## 📁 Project Structure
+
+```
+react-todo-app/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── FilterButtons.jsx   # Filter tabs (All/Active/Completed)
+│   │   ├── TaskCard.jsx        # Main container component
+│   │   ├── TaskInput.jsx       # Input field for new tasks
+│   │   └── TaskList.jsx        # Task list with edit/delete functionality
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── index.html
+├── package.json
+├── vite.config.js
+└── eslint.config.js
+```
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
