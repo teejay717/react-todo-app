@@ -6,16 +6,37 @@ import FilterButtons from './FilterButtons'
 
 const TaskCard = () => {
 
-const [todos, setTodos] = useState(() => {
-  const savedTodos = localStorage.getItem("todosStorage");
-  return savedTodos ? JSON.parse(savedTodos) : [];
-});
+// const [todos, setTodos] = useState(() => {
+//   const savedTodos = localStorage.getItem("todosStorage");
+//   return savedTodos ? JSON.parse(savedTodos) : [];
+// });
+
+const [todos, setTodos] = useState([]);
 
 const [filter, setFilter] = useState("all");
 
+// useEffect(() => {
+//   localStorage.setItem("todosStorage", JSON.stringify(todos))
+// }, [todos])
+
 useEffect(() => {
-  localStorage.setItem("todosStorage", JSON.stringify(todos))
-}, [todos])
+  const fetchTodos = async () => {
+  try {
+    const res = await fetch('http://localhost:5000/api/todos');
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error('Error fetching todos!');
+    }
+
+    console.log("Data from server:", data);
+    setTodos(data);
+  } catch (error) {
+    console.error("Error fetching: ", error);
+  }
+}
+fetchTodos();
+}, [])
 
 
   return (

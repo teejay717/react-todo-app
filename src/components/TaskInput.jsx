@@ -5,17 +5,41 @@ const TaskInput = ({ todos, setTodos}) => {
   const [inputValue, setInputValue] = useState('');
 
 
-  function submitTask (inputValue) {
+  async function submitTask (inputValue) {
     if (!inputValue.trim()) return;
 
-    const newTodo = {
-      id: Date.now(),
-      text: inputValue,
-      completed: false
+    try {
+      // Send the data to the Backend (Port 5000)
+      const res = await fetch('http://localhost:5000/api/todos', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: inputValue })
+      })
+
+      if (!res.ok) {
+        throw new Error('Failed to add task');
+      }
+
+      // The server sends back the new Todo (with the correct ID)
+      const newTodoFromServer = await res.json();
+      setTodos([...todos, newTodoFromServer]);
+      setInputValue('');
+    } catch (error) {
+      console.log('Error adding task: ', error)
     }
 
-    setTodos([...todos, newTodo]);
-    setInputValue('');
+
+
+  //   const newTodo = {
+  //     id: Date.now(),
+  //     text: inputValue,
+  //     completed: false
+  //   }
+
+  //   setTodos([...todos, newTodo]);
+  //   setInputValue('');
   }
 
   return ( 
