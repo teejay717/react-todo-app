@@ -27,10 +27,25 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
     // setTodos(todos.filter(todo => todo.id !== id));
   }
 
-  function toggleComplete(id) {
-    setTodos(todos.map(todo => 
-      todo.id === id 
-      ? {...todo, completed: !todo.completed } : todo ))
+  async function toggleComplete(id) {
+    try {
+      const res = await fetch(`http://localhost:5000/api/todos/${id}`, {
+        method: 'PUT'
+      });
+
+      if (res.ok) {
+        const updatedTodo = await res.json();
+
+        // Update the UI
+
+        setTodos(todos.map(todo => todo.id === id ? updatedTodo : todo))
+      }
+    } catch (error) {
+      console.error('Error updating task: ', error)
+    }
+    // setTodos(todos.map(todo => 
+    //   todo.id === id 
+    //   ? {...todo, completed: !todo.completed } : todo ))
   }
 
   function clearCompleted() {
