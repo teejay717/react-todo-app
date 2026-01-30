@@ -8,8 +8,23 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState("");
 
-  function deleteTask(id) {
-    setTodos(todos.filter(todo => todo.id !== id));
+  async function deleteTask(id) {
+    try {
+      const res = await fetch(`http://localhost:5000/api/todos/${id}`, {
+        method: 'DELETE'
+      });
+      
+      if (res.ok) {
+        const updatedTodos = todos.filter(todo => todo.id !== id);
+        setTodos(updatedTodos);
+        console.log('Deleted!');        
+      }
+
+    } catch (error) {
+      console.error("Error deleting task: ", error)
+    }
+
+    // setTodos(todos.filter(todo => todo.id !== id));
   }
 
   function toggleComplete(id) {
