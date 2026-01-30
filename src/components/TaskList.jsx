@@ -27,10 +27,16 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
     // setTodos(todos.filter(todo => todo.id !== id));
   }
 
-  async function toggleComplete(id) {
+  async function toggleComplete(todo) {
     try {
-      const res = await fetch(`http://localhost:5000/api/todos/${id}`, {
-        method: 'PUT'
+      const id = todo.id
+      const newStatus = !todo.completed;
+
+      const res = await fetch(`http://localhost:5000/api/todos/${todo.id}`, {
+        method: 'PUT',
+        headers: {'Content-Type' : 'application/json',},
+        body: JSON.stringify({completed:newStatus})
+        
       });
 
       if (res.ok) {
@@ -48,8 +54,20 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
     //   ? {...todo, completed: !todo.completed } : todo ))
   }
 
-  function clearCompleted() {
-    setTodos(todos.filter(todo => !todo.completed))
+  async function clearCompleted() {
+    try {
+      const res = await fetch('http://localhost:5000/api/todos/clear-completed', {
+        method: 'DELETE'
+      })
+
+      if (res.ok) {
+        setTodos(todos.filter(todo => todo.completed === false))
+        console.log('Deleted!'); 
+      }
+    } catch (error) {
+      console.error('Error deleted completed todos: ', error);
+    }
+    // setTodos(todos.filter(todo => !todo.completed))
   }
 
   function startEdit(todo) {
@@ -57,9 +75,30 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
     setEditText(todo.text);
   }
 
-  function saveEdit(id, editText) {
-    setTodos(todos.map(todo => todo.id === id ? {...todo, text: editText} : todo));
-    setEditingId(null);
+  async function saveEdit(id, editText) {
+    try {
+      const res = await fetch (`http://localhost:5000/api/todos/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({text : editText})
+      });
+
+      if (res.ok) {
+        const updatedTodo = await res.json();
+        console.log(updatedTodo);
+
+        // Update UI now
+        setTodos(todos.map(todo => todo.id === id ? updatedTodo : todo));
+        setEditingId(null);
+      }
+    } catch (error) {
+      console.error('Error updating text: ', error)
+    }
+
+    // setTodos(todos.map(todo => todo.id === id ? {...todo, text: editText} : todo));
+    // setEditingId(null);
     
   }
 
@@ -85,7 +124,7 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
             <input
               type="checkbox"
               checked = {todo.completed} 
-              onChange={() => toggleComplete(todo.id)}
+              onChange={() => toggleComplete(todo)}
               className='mr-4 cursor-pointer' 
               />
             <div className='flex justify-between items-center'>
