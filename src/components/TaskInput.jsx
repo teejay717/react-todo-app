@@ -10,7 +10,7 @@ const TaskInput = ({ todos, setTodos}) => {
     if (!inputValue.trim()) return;
 
     try {
-      // Send the data to the Backend (Port 5000)
+      // Send the data to the Backend
       const res = await fetch(`${API_BASE}/api/todos`, {
         method: "POST",
         headers: {
