@@ -1,4 +1,4 @@
-# React To-Do App
+# MERN Todo-App
 
 A clean, modern full-stack to-do list application built with React, Express, and MongoDB.
 
