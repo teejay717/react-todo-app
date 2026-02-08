@@ -1,10 +1,12 @@
 # React To-Do App
 
-A clean, modern to-do list application built with React and styled with Tailwind CSS.
+A clean, modern full-stack to-do list application built with React, Express, and MongoDB.
 
 ![React](https://img.shields.io/badge/React-19.2.0-61DAFB?logo=react)
 ![Vite](https://img.shields.io/badge/Vite-7.2.4-646CFF?logo=vite)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4.1.18-38B2AC?logo=tailwind-css)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)
 
 ## ✨ Features
 
@@ -14,7 +16,7 @@ A clean, modern to-do list application built with React and styled with Tailwind
 - 🗑️ **Delete Tasks** - Remove individual tasks with the trash button
 - 🧹 **Clear Completed** - Remove all completed tasks at once
 - 🔍 **Filter Tasks** - View All, Active, or Completed tasks
-- 💾 **Persistent Storage** - Tasks are saved to localStorage and persist across browser sessions
+- 💾 **Persistent Storage** - Tasks are stored in MongoDB database
 
 ## 🚀 Getting Started
 
@@ -22,6 +24,7 @@ A clean, modern to-do list application built with React and styled with Tailwind
 
 - [Node.js](https://nodejs.org/) (v18 or higher recommended)
 - npm or yarn
+- [MongoDB](https://www.mongodb.com/) (local or MongoDB Atlas)
 
 ### Installation
 
@@ -32,19 +35,37 @@ A clean, modern to-do list application built with React and styled with Tailwind
    cd react-todo-app
    ```
 
-2. Install dependencies:
+2. Install frontend dependencies:
 
    ```bash
    npm install
    ```
 
-3. Start the development server:
+3. Set up the backend:
+   - Navigate to your backend directory
+   - Create a `.env` file with your MongoDB connection string:
+     ```
+     MONGO_URI=your_mongodb_connection_string
+     ```
+   - Install backend dependencies and start the server on port 5000
+
+4. Start the frontend development server:
 
    ```bash
    npm run dev
    ```
 
-4. Open your browser and visit `http://localhost:5173`
+5. Open your browser and visit `http://localhost:5173`
+
+## 🔌 API Endpoints
+
+| Method | Endpoint                     | Description          |
+| ------ | ---------------------------- | -------------------- |
+| GET    | `/api/todos`                 | Get all todos        |
+| POST   | `/api/todos`                 | Create a new todo    |
+| PUT    | `/api/todos/:id`             | Update a todo        |
+| DELETE | `/api/todos/:id`             | Delete a todo        |
+| DELETE | `/api/todos/clear-completed` | Delete all completed |
 
 ## 📜 Available Scripts
 
@@ -61,6 +82,9 @@ A clean, modern to-do list application built with React and styled with Tailwind
 - **[Vite](https://vitejs.dev/)** - Build tool and dev server
 - **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
 - **[Font Awesome](https://fontawesome.com/)** - Icons
+- **[Express](https://expressjs.com/)** - Backend framework
+- **[MongoDB](https://www.mongodb.com/)** - NoSQL database
+- **[Mongoose](https://mongoosejs.com/)** - MongoDB object modeling
 
 ## 📁 Project Structure
 
