@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { API_BASE } from '../config'
 
 const TaskInput = ({ todos, setTodos}) => {
   const [inputValue, setInputValue] = useState('');
@@ -10,7 +11,7 @@ const TaskInput = ({ todos, setTodos}) => {
 
     try {
       // Send the data to the Backend (Port 5000)
-      const res = await fetch('http://localhost:5000/api/todos', {
+      const res = await fetch(`${API_BASE}/api/todos`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

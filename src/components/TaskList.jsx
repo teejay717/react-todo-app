@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { API_BASE } from '../config'
 
 const TaskList= ({ todos, setTodos, filter, setFilter }) => {
 
@@ -10,7 +11,7 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
 
   async function deleteTask(id) {
     try {
-      const res = await fetch(`http://localhost:5000/api/todos/${id}`, {
+      const res = await fetch(`${API_BASE}/api/todos/${id}`, {
         method: 'DELETE'
       });
       
@@ -32,7 +33,7 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
       const id = todo._id
       const newStatus = !todo.completed;
 
-      const res = await fetch(`http://localhost:5000/api/todos/${todo._id}`, {
+      const res = await fetch(`${API_BASE}/api/todos/${todo._id}`, {
         method: 'PUT',
         headers: {'Content-Type' : 'application/json',},
         body: JSON.stringify({completed:newStatus})
@@ -56,7 +57,7 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
 
   async function clearCompleted() {
     try {
-      const res = await fetch('http://localhost:5000/api/todos/clear-completed', {
+      const res = await fetch(`${API_BASE}/api/todos/clear-completed`, {
         method: 'DELETE'
       })
 
@@ -77,7 +78,7 @@ const TaskList= ({ todos, setTodos, filter, setFilter }) => {
 
   async function saveEdit(id, editText) {
     try {
-      const res = await fetch (`http://localhost:5000/api/todos/${id}`, {
+      const res = await fetch (`${API_BASE}/api/todos/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",

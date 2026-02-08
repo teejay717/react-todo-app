@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import TaskInput from './TaskInput'
 import TaskList from './TaskList'
 import FilterButtons from './FilterButtons'
+import { API_BASE } from '../config'
 
 const TaskCard = () => {
 
@@ -22,7 +23,7 @@ const [filter, setFilter] = useState("all");
 useEffect(() => {
   const fetchTodos = async () => {
   try {
-    const res = await fetch('http://localhost:5000/api/todos');
+    const res = await fetch(`${API_BASE}/api/todos`);
     const data = await res.json();
 
     if (!res.ok) {
